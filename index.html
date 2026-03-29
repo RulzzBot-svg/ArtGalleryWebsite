@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARTHAUS — A Gallery for Every Form</title>
+  <meta name="description" content="An open gallery where painters, photographers, filmmakers, sculptors, and digital artists share their work with the world." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ───── Navigation ───── -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">ARTHAUS</a>
+      <div class="nav-links">
+        <a href="#works">Works</a>
+        <a href="#cinema">Cinema</a>
+        <a href="#about">About</a>
+        <button class="btn-nav-submit" id="navSubmitBtn">Submit Work</button>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ───── Mobile Menu ───── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#works" class="mobile-link">Works</a>
+    <a href="#cinema" class="mobile-link">Cinema</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#" class="mobile-link" id="mobileSubmitBtn">Submit Work</a>
+  </div>
+
+  <!-- ───── Hero ───── -->
+  <section id="hero">
+    <div class="hero-bg-strip" aria-hidden="true" id="heroBgStrip"></div>
+    <div class="hero-content">
+      <p class="hero-overline">An open gallery &mdash; est. 2024</p>
+      <h1 class="hero-title">
+        Art without<br />
+        <em>boundaries.</em>
+      </h1>
+      <p class="hero-sub">
+        A space for painters, photographers, filmmakers,<br class="hero-br" />
+        sculptors, and digital artists to share work with the world.
+      </p>
+      <div class="hero-actions">
+        <a href="#works" class="btn-primary">Explore Gallery</a>
+        <button class="btn-ghost" id="heroSubmitBtn">Share Your Work</button>
+      </div>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ───── Featured Works ───── -->
+  <section id="featured">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Featured</span>
+        <h2>Selected Works</h2>
+      </div>
+      <div class="featured-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- ───── Gallery ───── -->
+  <section id="works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Gallery</span>
+        <h2>All Works</h2>
+      </div>
+      <div class="filter-bar" id="filterBar" role="tablist" aria-label="Filter gallery by category">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-btn" data-filter="painting" role="tab" aria-selected="false">Painting</button>
+        <button class="filter-btn" data-filter="photography" role="tab" aria-selected="false">Photography</button>
+        <button class="filter-btn" data-filter="digital" role="tab" aria-selected="false">Digital</button>
+        <button class="filter-btn" data-filter="sculpture" role="tab" aria-selected="false">Sculpture</button>
+        <button class="filter-btn" data-filter="cinema" role="tab" aria-selected="false">Cinema</button>
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+      <p class="gallery-empty" id="galleryEmpty" hidden>No works found in this category yet.</p>
+    </div>
+  </section>
+
+  <!-- ───── Cinema ───── -->
+  <section id="cinema">
+    <div class="container">
+      <div class="section-header section-header--light">
+        <span class="section-tag section-tag--light">Cinema</span>
+        <h2>Short Films &amp; Reels</h2>
+      </div>
+      <div class="cinema-grid" id="cinemaGrid"></div>
+    </div>
+  </section>
+
+  <!-- ───── About ───── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-text">
+          <span class="section-tag">About</span>
+          <h2 class="about-title">
+            A home for<br /><em>all artists.</em>
+          </h2>
+          <p>ARTHAUS is an open platform where creators share their work — paintings, photography, digital art, sculpture, cinema, and everything in between. No gatekeeping. No algorithms. Just art.</p>
+          <p>Whether you're a professional or just starting out, your work belongs here.</p>
+          <button class="btn-primary" id="aboutSubmitBtn">Submit Your Work</button>
+        </div>
+        <div class="about-stats">
+          <div class="stat">
+            <span class="stat-number">2,400+</span>
+            <span class="stat-label">Works Displayed</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">840+</span>
+            <span class="stat-label">Artists</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Categories</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───── Footer ───── -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="nav-logo">ARTHAUS</span>
+          <p>An open gallery for every form of art.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explore</h4>
+            <a href="#works">Gallery</a>
+            <a href="#cinema">Cinema</a>
+            <a href="#featured">Featured</a>
+          </div>
+          <div class="footer-col">
+            <h4>Artists</h4>
+            <a href="#" class="footer-submit-link">Submit Work</a>
+            <a href="#about">About</a>
+          </div>
+          <div class="footer-col">
+            <h4>Follow</h4>
+            <a href="#" rel="noopener noreferrer">Instagram</a>
+            <a href="#" rel="noopener noreferrer">Twitter / X</a>
+            <a href="#" rel="noopener noreferrer">Vimeo</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 ARTHAUS &mdash; Made for artists, by artists.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ───── Lightbox ───── -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous artwork">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next artwork">&#8594;</button>
+    <div class="lightbox-stage">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <div class="lightbox-info" id="lightboxInfo"></div>
+    </div>
+  </div>
+
+  <!-- ───── Cinema Modal ───── -->
+  <div class="lightbox lightbox--cinema" id="cinemaLightbox" role="dialog" aria-modal="true" aria-label="Film viewer" hidden>
+    <button class="lightbox-close" id="cinemaLightboxClose" aria-label="Close">&times;</button>
+    <div class="lightbox-stage lightbox-stage--video">
+      <div class="video-placeholder" id="cinemaVideoPlaceholder">
+        <img id="cinemaLightboxThumb" src="" alt="" />
+        <div class="video-play-overlay">
+          <div class="play-btn-large">&#9654;</div>
+          <p id="cinemaLightboxTitle"></p>
+        </div>
+      </div>
+      <div class="lightbox-info" id="cinemaLightboxInfo"></div>
+    </div>
+  </div>
+
+  <!-- ───── Upload Modal ───── -->
+  <div class="modal-overlay" id="uploadOverlay" hidden>
+    <div class="modal" id="uploadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+      <div class="modal-body">
+        <span class="section-tag">Submit</span>
+        <h2 id="modalTitle">Share Your Work</h2>
+        <p class="modal-sub">Your art deserves to be seen. Submit it to the ARTHAUS community.</p>
+        <form id="uploadForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fieldName">Your Name</label>
+              <input type="text" id="fieldName" placeholder="Full name or artist alias" required />
+            </div>
+            <div class="form-group">
+              <label for="fieldTitle">Title of Work</label>
+              <input type="text" id="fieldTitle" placeholder="Untitled" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fieldCategory">Category</label>
+              <select id="fieldCategory" required>
+                <option value="">Select category</option>
+                <option value="painting">Painting</option>
+                <option value="photography">Photography</option>
+                <option value="digital">Digital Art</option>
+                <option value="sculpture">Sculpture</option>
+                <option value="cinema">Cinema / Short Film</option>
+                <option value="mixed">Mixed Media</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fieldYear">Year Created</label>
+              <input type="number" id="fieldYear" placeholder="2024" min="1900" max="2099" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fieldMedium">Medium</label>
+            <input type="text" id="fieldMedium" placeholder="e.g. Oil on canvas, Digital photography, 4K film" />
+          </div>
+          <div class="form-group">
+            <label>Upload File or Image URL</label>
+            <div class="upload-area" id="uploadArea">
+              <input type="file" id="fileInput" accept="image/*,video/*" />
+              <label for="fileInput" class="upload-placeholder">
+                <span class="upload-icon">+</span>
+                <span>Click to upload or drag &amp; drop</span>
+                <span class="upload-hint">JPG, PNG, GIF, MP4, MOV &mdash; up to 200 MB</span>
+              </label>
+              <p class="upload-filename" id="uploadFilename" hidden></p>
+            </div>
+            <div class="url-divider"><span>or</span></div>
+            <input type="url" id="fieldUrl" class="url-input" placeholder="Paste a direct URL to your work" />
+          </div>
+          <div class="form-group">
+            <label for="fieldDesc">Description <span class="optional">(optional)</span></label>
+            <textarea id="fieldDesc" rows="3" placeholder="Tell us about your work — inspiration, process, materials..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full">Submit Work &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── Toast ───── -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon">&#10003;</span>
+    Your work has been submitted!
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
