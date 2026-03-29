@@ -294,6 +294,8 @@ document.addEventListener('keydown', e => {
 });
 
 /* ── Upload Modal ─────────────────────────────────────────────── */
+let droppedFile = null; // Track files dragged in, since fileInput.files is read-only
+
 function openUpload() {
   uploadOverlay.hidden = false;
   document.body.style.overflow = 'hidden';
@@ -303,6 +305,7 @@ function openUpload() {
 function closeUpload() {
   uploadOverlay.hidden = true;
   document.body.style.overflow = '';
+  droppedFile = null;
 }
 
 document.getElementById('navSubmitBtn').addEventListener('click', openUpload);
@@ -316,6 +319,7 @@ uploadOverlay.addEventListener('click', e => { if (e.target === uploadOverlay) c
 
 /* File input feedback */
 fileInput.addEventListener('change', () => {
+  droppedFile = null;
   if (fileInput.files.length > 0) {
     uploadFilename.textContent = fileInput.files[0].name;
     uploadFilename.hidden = false;
@@ -324,7 +328,7 @@ fileInput.addEventListener('change', () => {
   }
 });
 
-/* Drag & drop */
+/* Drag & drop — store file in droppedFile since fileInput.files is read-only */
 uploadArea.addEventListener('dragover', e => {
   e.preventDefault();
   uploadArea.style.borderColor = 'var(--text)';
@@ -337,8 +341,8 @@ uploadArea.addEventListener('drop', e => {
   uploadArea.style.borderColor = '';
   const files = e.dataTransfer.files;
   if (files.length > 0) {
-    fileInput.files = files;
-    uploadFilename.textContent = files[0].name;
+    droppedFile = files[0];
+    uploadFilename.textContent = droppedFile.name;
     uploadFilename.hidden = false;
   }
 });
@@ -350,9 +354,12 @@ uploadForm.addEventListener('submit', e => {
   const name     = document.getElementById('fieldName').value.trim();
   const title    = document.getElementById('fieldTitle').value.trim();
   const category = document.getElementById('fieldCategory').value;
+  const url      = document.getElementById('fieldUrl').value.trim();
+  const hasFile  = fileInput.files.length > 0 || droppedFile !== null;
+  const hasMedia = hasFile || url.length > 0;
 
-  if (!name || !title || !category) {
-    highlightInvalid();
+  if (!name || !title || !category || !hasMedia) {
+    highlightInvalid(hasMedia);
     return;
   }
 
@@ -362,7 +369,7 @@ uploadForm.addEventListener('submit', e => {
   showToast();
 });
 
-function highlightInvalid() {
+function highlightInvalid(hasMedia) {
   ['fieldName', 'fieldTitle', 'fieldCategory'].forEach(id => {
     const el = document.getElementById(id);
     if (!el.value.trim()) {
@@ -370,6 +377,17 @@ function highlightInvalid() {
       el.addEventListener('input', () => { el.style.borderColor = ''; }, { once: true });
     }
   });
+  if (!hasMedia) {
+    uploadArea.style.borderColor = '#e53935';
+    const urlField = document.getElementById('fieldUrl');
+    urlField.style.borderColor = '#e53935';
+    const clearMedia = () => {
+      uploadArea.style.borderColor = '';
+      urlField.style.borderColor = '';
+    };
+    fileInput.addEventListener('change', clearMedia, { once: true });
+    urlField.addEventListener('input', clearMedia, { once: true });
+  }
 }
 
 /* ── Toast ────────────────────────────────────────────────────── */
