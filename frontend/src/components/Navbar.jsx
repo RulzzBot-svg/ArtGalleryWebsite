@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Navbar({ onSubmitClick }) {
+export default function Navbar({ onSubmitClick, onLoginClick, onLogout, user }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -30,12 +30,29 @@ export default function Navbar({ onSubmitClick }) {
             <a href="#works" className="text-sm font-medium text-[#111] hover:opacity-60 transition-opacity">Works</a>
             <a href="#cinema" className="text-sm font-medium text-[#111] hover:opacity-60 transition-opacity">Cinema</a>
             <a href="#about" className="text-sm font-medium text-[#111] hover:opacity-60 transition-opacity">About</a>
-            <button
-              onClick={onSubmitClick}
-              className="px-5 py-2.5 text-sm font-medium border border-[#111] text-[#111] hover:bg-[#111] hover:text-[#F5F4EF] transition-colors rounded-sm"
-            >
-              Submit Work
-            </button>
+            {user ? (
+              <>
+                <button
+                  onClick={onSubmitClick}
+                  className="px-5 py-2.5 text-sm font-medium border border-[#111] text-[#111] hover:bg-[#111] hover:text-[#F5F4EF] transition-colors rounded-sm"
+                >
+                  Submit Work
+                </button>
+                <button
+                  onClick={onLogout}
+                  className="text-sm font-medium text-[#111]/50 hover:text-[#111] transition-colors"
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={onLoginClick}
+                className="px-5 py-2.5 text-sm font-medium border border-[#111] text-[#111] hover:bg-[#111] hover:text-[#F5F4EF] transition-colors rounded-sm"
+              >
+                Login
+              </button>
+            )}
           </div>
 
           {/* Hamburger */}
@@ -73,12 +90,29 @@ export default function Navbar({ onSubmitClick }) {
         <a href="#works" onClick={closeMenu} className="text-sm font-medium text-[#111]">Works</a>
         <a href="#cinema" onClick={closeMenu} className="text-sm font-medium text-[#111]">Cinema</a>
         <a href="#about" onClick={closeMenu} className="text-sm font-medium text-[#111]">About</a>
-        <button
-          onClick={() => { closeMenu(); onSubmitClick(); }}
-          className="text-sm font-medium text-[#111] text-left"
-        >
-          Submit Work
-        </button>
+        {user ? (
+          <>
+            <button
+              onClick={() => { closeMenu(); onSubmitClick(); }}
+              className="text-sm font-medium text-[#111] text-left"
+            >
+              Submit Work
+            </button>
+            <button
+              onClick={() => { closeMenu(); onLogout(); }}
+              className="text-sm font-medium text-[#111]/50 text-left"
+            >
+              Log out
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={() => { closeMenu(); onLoginClick(); }}
+            className="text-sm font-medium text-[#111] text-left"
+          >
+            Login
+          </button>
+        )}
       </div>
     </>
   );

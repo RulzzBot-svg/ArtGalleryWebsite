@@ -3,7 +3,7 @@
 const BASE = '/api';
 
 async function request(path, options = {}) {
-  const res = await fetch(`${BASE}${path}`, options);
+  const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...options });
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: res.statusText }));
     throw new Error(err.error || `HTTP ${res.status}`);
@@ -25,4 +25,14 @@ export const api = {
   getCinema: () => request('/cinema'),
   createCinema: (formData) =>
     request('/cinema', { method: 'POST', body: formData }),
+
+  /* Auth */
+  getMe: () => request('/auth/me'),
+  login: (username, password) =>
+    request('/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    }),
+  logout: () => request('/auth/logout', { method: 'POST' }),
 };

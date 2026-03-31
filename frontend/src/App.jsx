@@ -9,10 +9,15 @@ import Footer from './components/Footer';
 import Lightbox from './components/Lightbox';
 import CinemaModal from './components/CinemaModal';
 import UploadModal from './components/UploadModal';
+import LoginModal from './components/LoginModal';
 import Toast from './components/Toast';
 import { api } from './services/api';
 
 export default function App() {
+  /* ── Auth state ── */
+  const [user, setUser] = useState(null);
+  const [loginOpen, setLoginOpen] = useState(false);
+
   /* ── Featured artworks for Hero + Featured section ── */
   const [featured, setFeatured] = useState([]);
 
@@ -35,6 +40,7 @@ export default function App() {
 
   useEffect(() => {
     api.getFeatured().then(setFeatured).catch(console.error);
+    api.getMe().then((d) => { if (d.user) setUser(d.user); }).catch(() => {});
   }, []);
 
   function openLightbox(art, items) {
@@ -60,13 +66,32 @@ export default function App() {
     showToast();
   }
 
+  function handleLoginSuccess(username) {
+    setUser({ username });
+  }
+
+  async function handleLogout() {
+    try { await api.logout(); } catch (_) {}
+    setUser(null);
+  }
+
+  function openUpload() {
+    if (user) setUploadOpen(true);
+    else setLoginOpen(true);
+  }
+
   const heroImages = featured.slice(0, 4).map((a) => a.image_url);
 
   return (
     <>
-      <Navbar onSubmitClick={() => setUploadOpen(true)} />
+      <Navbar
+        onSubmitClick={openUpload}
+        onLoginClick={() => setLoginOpen(true)}
+        onLogout={handleLogout}
+        user={user}
+      />
 
-      <Hero onSubmitClick={() => setUploadOpen(true)} heroImages={heroImages} />
+      <Hero onSubmitClick={openUpload} heroImages={heroImages} isLoggedIn={!!user} />
 
       {featured.length > 0 && (
         <FeaturedWorks artworks={featured} onArtClick={openLightbox} />
@@ -76,9 +101,9 @@ export default function App() {
 
       <Cinema onFilmClick={setActiveFilm} />
 
-      <About onSubmitClick={() => setUploadOpen(true)} />
+      <About onSubmitClick={openUpload} isLoggedIn={!!user} />
 
-      <Footer onSubmitClick={() => setUploadOpen(true)} />
+      <Footer onSubmitClick={openUpload} isLoggedIn={!!user} />
 
       {lightboxOpen && (
         <Lightbox
@@ -97,6 +122,13 @@ export default function App() {
         <UploadModal
           onClose={() => setUploadOpen(false)}
           onSuccess={handleUploadSuccess}
+        />
+      )}
+
+      {loginOpen && (
+        <LoginModal
+          onClose={() => setLoginOpen(false)}
+          onSuccess={handleLoginSuccess}
         />
       )}
 

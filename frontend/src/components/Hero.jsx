@@ -1,4 +1,4 @@
-export default function Hero({ onSubmitClick, heroImages }) {
+export default function Hero({ onSubmitClick, heroImages, isLoggedIn }) {
   return (
     <section id="hero" className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F4EF]">
       {/* Background strip */}
@@ -40,12 +40,14 @@ export default function Hero({ onSubmitClick, heroImages }) {
           >
             Explore Gallery
           </a>
-          <button
-            onClick={onSubmitClick}
-            className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#111]/30 text-[#111] text-sm font-medium tracking-wide rounded-sm hover:border-[#111] transition-colors"
-          >
-            Share Your Work
-          </button>
+          {isLoggedIn && (
+            <button
+              onClick={onSubmitClick}
+              className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#111]/30 text-[#111] text-sm font-medium tracking-wide rounded-sm hover:border-[#111] transition-colors"
+            >
+              Share Your Work
+            </button>
+          )}
         </div>
       </div>
 

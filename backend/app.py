@@ -20,9 +20,15 @@ def create_app(config_class=Config):
     # Blueprints
     app.register_blueprint(api_bp)
 
-    # Create database tables if they don't exist yet
+    # Create database tables if they don't exist yet, then seed default admin
     with app.app_context():
         db.create_all()
+        from models import User
+        if not User.query.first():
+            admin = User(username=os.environ.get("ADMIN_USERNAME", "admin"))
+            admin.set_password(os.environ.get("ADMIN_PASSWORD", "arthaus2024"))
+            db.session.add(admin)
+            db.session.commit()
 
     return app
 

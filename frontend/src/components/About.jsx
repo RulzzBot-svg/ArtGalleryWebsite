@@ -1,4 +1,4 @@
-export default function About({ onSubmitClick }) {
+export default function About({ onSubmitClick, isLoggedIn }) {
   return (
     <section id="about" className="py-24 bg-[#F5F4EF]">
       <div className="max-w-[1360px] mx-auto px-5 md:px-10">
@@ -20,12 +20,14 @@ export default function About({ onSubmitClick }) {
             <p className="text-[#888] text-base leading-relaxed mb-8">
               Whether you&apos;re a professional or just starting out, your work belongs here.
             </p>
-            <button
-              onClick={onSubmitClick}
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#111] text-[#F5F4EF] text-sm font-medium tracking-wide rounded-sm hover:bg-transparent hover:text-[#111] border border-[#111] transition-colors"
-            >
-              Submit Your Work
-            </button>
+            {isLoggedIn && (
+              <button
+                onClick={onSubmitClick}
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#111] text-[#F5F4EF] text-sm font-medium tracking-wide rounded-sm hover:bg-transparent hover:text-[#111] border border-[#111] transition-colors"
+              >
+                Submit Your Work
+              </button>
+            )}
           </div>
 
           {/* Stats */}

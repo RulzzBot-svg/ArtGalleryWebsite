@@ -1,9 +1,9 @@
 import os
 import uuid
-from flask import Blueprint, request, jsonify, send_from_directory, current_app
+from flask import Blueprint, request, jsonify, send_from_directory, current_app, session
 from werkzeug.utils import secure_filename
 from extensions import db
-from models import Artwork, CinemaWork
+from models import Artwork, CinemaWork, User
 
 api_bp = Blueprint("api", __name__, url_prefix="/api")
 
@@ -26,6 +26,36 @@ def _save_file(file_storage):
     dest = os.path.join(upload_folder, unique_name)
     file_storage.save(dest)
     return f"/api/uploads/{unique_name}", dest
+
+
+# ── Authentication ──────────────────────────────────────────────────────────
+
+@api_bp.route("/auth/login", methods=["POST"])
+def login():
+    data = request.get_json(silent=True) or {}
+    username = data.get("username", "").strip()
+    password = data.get("password", "")
+    if not username or not password:
+        return jsonify({"error": "Username and password are required"}), 400
+    user = User.query.filter_by(username=username).first()
+    if not user or not user.check_password(password):
+        return jsonify({"error": "Invalid credentials"}), 401
+    session["user_id"] = user.id
+    session["username"] = user.username
+    return jsonify({"username": user.username})
+
+
+@api_bp.route("/auth/logout", methods=["POST"])
+def logout():
+    session.clear()
+    return jsonify({"ok": True})
+
+
+@api_bp.route("/auth/me", methods=["GET"])
+def me():
+    if "user_id" not in session:
+        return jsonify({"user": None})
+    return jsonify({"user": {"username": session["username"]}})
 
 
 # ── Serve uploaded files ────────────────────────────────────────────────────
@@ -78,6 +108,9 @@ def create_artwork():
       url         (optional) — direct URL to the artwork image/video
       file        (optional) — uploaded file (image or video)
     """
+    if "user_id" not in session:
+        return jsonify({"error": "Authentication required"}), 401
+
     name = request.form.get("name", "").strip()
     title = request.form.get("title", "").strip()
     category = request.form.get("category", "").strip()
@@ -152,6 +185,9 @@ def create_cinema():
       url         (optional) — direct URL to the film or thumbnail
       file        (optional) — uploaded file (video or image thumbnail)
     """
+    if "user_id" not in session:
+        return jsonify({"error": "Authentication required"}), 401
+
     director = request.form.get("director", "").strip()
     title = request.form.get("title", "").strip()
     year_str = request.form.get("year", "").strip()

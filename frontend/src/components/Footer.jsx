@@ -1,4 +1,4 @@
-export default function Footer({ onSubmitClick }) {
+export default function Footer({ onSubmitClick, isLoggedIn }) {
   return (
     <footer id="footer" className="bg-[#111] text-[#F5F4EF] py-16">
       <div className="max-w-[1360px] mx-auto px-5 md:px-10">
@@ -19,12 +19,14 @@ export default function Footer({ onSubmitClick }) {
             </div>
             <div className="flex flex-col gap-3">
               <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40">Artists</h4>
-              <button
-                onClick={onSubmitClick}
-                className="text-sm text-white/70 hover:text-white transition-colors text-left"
-              >
-                Submit Work
-              </button>
+              {isLoggedIn && (
+                <button
+                  onClick={onSubmitClick}
+                  className="text-sm text-white/70 hover:text-white transition-colors text-left"
+                >
+                  Submit Work
+                </button>
+              )}
               <a href="#about" className="text-sm text-white/70 hover:text-white transition-colors">About</a>
             </div>
             <div className="flex flex-col gap-3">
