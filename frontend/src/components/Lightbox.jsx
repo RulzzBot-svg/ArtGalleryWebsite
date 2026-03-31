@@ -45,7 +45,7 @@ export default function Lightbox({ items, index, onClose, onNavigate }) {
         <button
           onClick={() => onNavigate(-1)}
           aria-label="Previous artwork"
-          className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl transition-colors p-2"
+          className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl transition-colors p-4 sm:p-2"
         >
           &#8592;
         </button>
@@ -56,14 +56,14 @@ export default function Lightbox({ items, index, onClose, onNavigate }) {
         <button
           onClick={() => onNavigate(1)}
           aria-label="Next artwork"
-          className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl transition-colors p-2"
+          className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-2xl transition-colors p-4 sm:p-2"
         >
           &#8594;
         </button>
       )}
 
       {/* Stage */}
-      <div className="flex flex-col items-center gap-5 px-16 max-w-4xl w-full">
+      <div className="flex flex-col items-center gap-5 px-12 sm:px-16 max-w-4xl w-full">
         <img
           src={art.image_url}
           alt={`${art.title} by ${art.artist}`}

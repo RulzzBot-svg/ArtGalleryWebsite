@@ -31,7 +31,7 @@ export default function About({ onSubmitClick, isLoggedIn }) {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 md:gap-6">
+          <div className="grid grid-cols-3 gap-3 sm:gap-6 md:gap-8">
             {[
               { number: '2,400+', label: 'Works Displayed' },
               { number: '840+', label: 'Artists' },

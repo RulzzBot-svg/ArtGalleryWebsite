@@ -39,14 +39,18 @@ export default function Gallery({ onArtClick }) {
         </div>
 
         {/* Filter tabs */}
-        <div className="flex flex-wrap gap-2 mb-10" role="tablist" aria-label="Filter gallery by category">
+        <div
+          className="flex gap-2 mb-10 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          role="tablist"
+          aria-label="Filter gallery by category"
+        >
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               role="tab"
               aria-selected={activeFilter === cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-4 py-2 text-xs font-medium tracking-wide uppercase rounded-sm border transition-colors ${
+              className={`flex-shrink-0 px-4 py-2 text-xs font-medium tracking-wide uppercase rounded-sm border transition-colors ${
                 activeFilter === cat
                   ? 'bg-[#111] text-[#F5F4EF] border-[#111]'
                   : 'bg-transparent text-[#111] border-[#111]/20 hover:border-[#111]'

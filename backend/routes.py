@@ -17,7 +17,23 @@ def _allowed_file(filename):
 
 
 def _save_file(file_storage):
-    """Save an uploaded file to UPLOAD_FOLDER and return the relative URL."""
+    """Save an uploaded file.
+    - Uses Cloudinary when CLOUDINARY_URL env var is set (required for Vercel/serverless).
+    - Falls back to local UPLOAD_FOLDER storage for local/Render deployment.
+    """
+    cloudinary_url = os.environ.get("CLOUDINARY_URL")
+    if cloudinary_url:
+        import cloudinary
+        import cloudinary.uploader
+        # Cloudinary auto-configures from the CLOUDINARY_URL env var
+        result = cloudinary.uploader.upload(
+            file_storage,
+            resource_type="auto",
+            folder="arthaus",
+        )
+        return result["secure_url"], None
+
+    # Local / Render fallback
     filename = secure_filename(file_storage.filename)
     ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else ""
     unique_name = f"{uuid.uuid4().hex}.{ext}"

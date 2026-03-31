@@ -29,3 +29,8 @@ class Config:
     CORS_ORIGINS = os.environ.get("CORS_ORIGINS", "http://localhost:5173").split(",")
 
     SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
+
+    # Session cookie — cross-origin (Vercel frontend + backend on separate domains) needs
+    # SameSite=None + Secure. Set these env vars in production; leave unset for local dev.
+    SESSION_COOKIE_SAMESITE = os.environ.get("SESSION_COOKIE_SAMESITE", "Lax")
+    SESSION_COOKIE_SECURE = os.environ.get("SESSION_COOKIE_SECURE", "false").lower() == "true"

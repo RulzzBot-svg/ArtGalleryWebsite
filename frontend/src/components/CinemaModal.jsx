@@ -33,7 +33,7 @@ export default function CinemaModal({ film, onClose }) {
         &times;
       </button>
 
-      <div className="flex flex-col items-center gap-6 px-8 max-w-3xl w-full">
+      <div className="flex flex-col items-center gap-6 px-4 sm:px-8 max-w-3xl w-full">
         {/* Thumbnail with play overlay */}
         <div className="relative w-full aspect-video overflow-hidden rounded-sm">
           <img
@@ -53,14 +53,14 @@ export default function CinemaModal({ film, onClose }) {
 
         {/* Info */}
         <div className="text-center">
-          <p className="text-white font-serif text-3xl font-light"
+          <p className="text-white font-serif text-2xl sm:text-3xl font-light"
              style={{ fontFamily: "'Cormorant Garamond', serif" }}>{film.title}</p>
           <p className="text-white/60 text-sm mt-1">Dir. {film.director}</p>
           <p className="text-white/40 text-xs mt-0.5">
             {film.year} &mdash; {film.duration} &mdash; {film.genre}
           </p>
           {film.description && (
-            <p className="text-white/50 text-sm mt-3 max-w-md mx-auto leading-relaxed">{film.description}</p>
+            <p className="text-white/50 text-sm mt-3 max-w-xs sm:max-w-md mx-auto leading-relaxed">{film.description}</p>
           )}
         </div>
       </div>

@@ -86,7 +86,7 @@ export default function UploadModal({ onClose, onSuccess }) {
           &times;
         </button>
 
-        <div className="p-8 md:p-10">
+        <div className="p-5 sm:p-8 md:p-10">
           <span className="text-[10px] font-medium tracking-[0.25em] uppercase text-[#888]">Submit</span>
           <h2
             id="modalTitle"

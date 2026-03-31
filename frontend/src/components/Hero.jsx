@@ -23,7 +23,7 @@ export default function Hero({ onSubmitClick, heroImages, isLoggedIn }) {
           An open gallery &mdash; est. 2024
         </p>
         <h1
-          className="font-serif text-6xl md:text-8xl lg:text-[9rem] font-light leading-none tracking-tight text-[#111] mb-6"
+          className="font-serif text-5xl sm:text-6xl md:text-8xl lg:text-[9rem] font-light leading-none tracking-tight text-[#111] mb-6"
           style={{ fontFamily: "'Cormorant Garamond', serif" }}
         >
           Art without<br />

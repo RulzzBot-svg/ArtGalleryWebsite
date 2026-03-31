@@ -15,7 +15,7 @@ def create_app(config_class=Config):
 
     # Extensions
     db.init_app(app)
-    CORS(app, origins=app.config["CORS_ORIGINS"])
+    CORS(app, origins=app.config["CORS_ORIGINS"], supports_credentials=True)
 
     # Blueprints
     app.register_blueprint(api_bp)

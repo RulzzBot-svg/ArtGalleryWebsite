@@ -1,6 +1,9 @@
 /* API service — all calls go to the Flask backend at /api */
 
-const BASE = '/api';
+// In dev, Vite proxies /api -> localhost:5000 so BASE stays '/api'.
+// In production (Render static site), set VITE_API_URL to your backend URL, e.g.:
+//   https://arthaus-api.onrender.com
+const BASE = (import.meta.env.VITE_API_URL ?? '') + '/api';
 
 async function request(path, options = {}) {
   const res = await fetch(`${BASE}${path}`, { credentials: 'include', ...options });

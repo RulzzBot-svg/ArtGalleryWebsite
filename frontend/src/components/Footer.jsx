@@ -10,7 +10,7 @@ export default function Footer({ onSubmitClick, isLoggedIn }) {
           </div>
 
           {/* Links */}
-          <div className="flex gap-12 md:gap-16">
+          <div className="flex flex-wrap gap-8 md:gap-16">
             <div className="flex flex-col gap-3">
               <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40">Explore</h4>
               <a href="#works" className="text-sm text-white/70 hover:text-white transition-colors">Gallery</a>
